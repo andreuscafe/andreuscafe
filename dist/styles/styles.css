@@ -1,0 +1,404 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
+/* $palette: #e0a899; */
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */
+  -webkit-tap-highlight-color: transparent;
+}
+*:focus, *:active {
+  outline: none !important;
+}
+
+input, input:before, input:after {
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
+}
+
+body {
+  --palette: #ff3377;
+  --paletteDark: #cc0044;
+  --paletteLight: #ff80aa;
+  --paletteLighter: #ffd6e4;
+}
+
+.phoneWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: var(--paletteLight);
+  background: radial-gradient(var(--paletteLight), var(--paletteDark));
+}
+.phoneWrapper .phone {
+  width: 360px;
+  height: 667px;
+  position: relative;
+  background-color: #f6f6f6;
+  border-radius: 35px;
+  border: 10px solid var(--paletteDark);
+  overflow: hidden;
+  font-family: "Open Sans", sans-serif;
+  box-shadow: 0px 20px 35px -10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  transition: height 0.3s ease-in-out, width 0.3s ease-in-out, border-radius 0.3s ease-in-out, border-width 0.3s ease-in-out;
+}
+@media (max-width: 480px), (max-height: 717px) {
+  .phoneWrapper .phone {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border-width: 0;
+  }
+}
+.phoneWrapper .phone .loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  z-index: 20;
+}
+.phoneWrapper .phone .loading:before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 5px;
+  border-left: 5px solid var(--palette);
+  animation: rotate 1s infinite linear;
+  margin-right: 15px;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.appWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+@media (max-width: 480px), (max-height: 717px) {
+  .appWrapper {
+    height: 100%;
+  }
+}
+.appWrapper .header {
+  flex: 0 0 auto;
+  height: 65px;
+  background-color: var(--palette);
+  display: flex;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  position: relative;
+}
+.appWrapper .header ::-moz-selection {
+  background: #FFF;
+  color: var(--palette);
+}
+.appWrapper .header ::selection {
+  background: #FFF;
+  color: var(--palette);
+}
+.appWrapper .header .backWrapper {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.appWrapper .header .backWrapper .backIcon {
+  fill: #FFF;
+  width: 35px;
+}
+.appWrapper .header .userWrapper {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  text-decoration: none;
+}
+.appWrapper .header .userWrapper .userIcon {
+  flex: 0 0 auto;
+  width: 40px;
+  heigth: 40px;
+  border-radius: 50%;
+  fill: #FFF;
+  margin-right: 10px;
+}
+.appWrapper .header .userWrapper .userName {
+  color: #FFF;
+  font-weight: bold;
+}
+.appWrapper .header .actionsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.appWrapper .header .actionsWrapper .actionIcon {
+  fill: #FFF;
+  width: 25px;
+  height: 25px;
+  box-sizing: content-box;
+  padding: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  transition: background-color 0.2s ease-in-out, fill 0.2s ease-in-out;
+  cursor: pointer;
+}
+.appWrapper .header .actionsWrapper .actionIcon:active {
+  background-color: #fff;
+  fill: var(--palette);
+}
+.appWrapper .header .actionsWrapper .menuWrapper {
+  position: absolute;
+  background-color: #FFF;
+  top: calc(100% + 5px);
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.3);
+}
+.appWrapper .header .actionsWrapper .menuWrapper[data-open=true] {
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in-out;
+  opacity: 1;
+  transform: translateY(0%) translateX(0%);
+}
+.appWrapper .header .actionsWrapper .menuWrapper[data-open=false] {
+  transition: opacity 0.2s ease-in-out, transform 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(-100%) translateX(50%) scale(0);
+}
+.appWrapper .header .actionsWrapper .menuWrapper:before {
+  content: "";
+  width: 0px;
+  border-bottom: 10px solid #FFF;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  position: absolute;
+  top: 0;
+  right: 15px;
+  transform: translateY(-100%);
+}
+.appWrapper .header .actionsWrapper .menuWrapper .menuItem {
+  flex: 1 1 auto;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  cursor: pointer;
+}
+.appWrapper .header .actionsWrapper .menuWrapper .menuItem:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.appWrapper .header .actionsWrapper .menuWrapper .menuItem:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.appWrapper .header .actionsWrapper .menuWrapper .menuItem:active {
+  background-color: var(--palette);
+  color: #FFF;
+}
+.appWrapper .header .actionsWrapper .menuWrapper .menuItem:active .menuIcon {
+  fill: #FFF;
+}
+.appWrapper .header .actionsWrapper .menuWrapper .menuItem .menuIcon {
+  flex: 0 0 auto;
+  fill: var(--palette);
+  width: 25px;
+  height: 25px;
+  box-sizing: content-box;
+  border-radius: 50%;
+  margin-right: 5px;
+  transition: background-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+  cursor: pointer;
+}
+.appWrapper .header .actionsWrapper .menuWrapper .menuItem .menuLabel {
+  flex: 1 0 auto;
+}
+.appWrapper .chatWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: url(https://s3.amazonaws.com/andreus-images-bank/bg.png) repeat center center;
+}
+.appWrapper .chatWrapper .messagesWrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+.appWrapper .chatWrapper .messagesWrapper .mb-track {
+  z-index: 1;
+}
+.appWrapper .chatWrapper .messagesWrapper .message ::-moz-selection {
+  background: var(--palette);
+  color: #FFF;
+}
+.appWrapper .chatWrapper .messagesWrapper .message ::selection {
+  background: var(--palette);
+  color: #FFF;
+}
+.appWrapper .chatWrapper .messagesWrapper .message:first-child .messageText:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 0;
+}
+.appWrapper .chatWrapper .messagesWrapper .message:not(:last-child) {
+  margin-bottom: 5px;
+}
+.appWrapper .chatWrapper .messagesWrapper .message .messageText {
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  line-height: 1.4rem;
+  max-width: 90%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  word-break: break-word;
+  color: #333;
+}
+.appWrapper .chatWrapper .messagesWrapper .message .messageText:after {
+  content: attr(data-date);
+  display: block;
+  position: relative;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  color: #aaa;
+  margin-top: 3px;
+}
+.appWrapper .chatWrapper .messagesWrapper .sentWrapper, .appWrapper .chatWrapper .messagesWrapper .receivedWrapper {
+  padding: 10px 15px;
+}
+.appWrapper .chatWrapper .messagesWrapper .sentWrapper + .sentWrapper {
+  margin-top: -15px;
+}
+.appWrapper .chatWrapper .messagesWrapper .sentWrapper + .sentWrapper .messageText {
+  border-radius: 10px;
+}
+.appWrapper .chatWrapper .messagesWrapper .sentWrapper + .sentWrapper .messageText:before {
+  display: none;
+}
+.appWrapper .chatWrapper .messagesWrapper .sentWrapper .message {
+  text-align: right;
+}
+.appWrapper .chatWrapper .messagesWrapper .sentWrapper .message .messageText {
+  background-color: var(--paletteLighter);
+}
+.appWrapper .chatWrapper .messagesWrapper .sentWrapper .message .messageText:before {
+  right: 0px;
+  transform: translateX(50%);
+  border-right: 20px solid transparent;
+  border-top: 20px solid var(--paletteLighter);
+}
+.appWrapper .chatWrapper .messagesWrapper .receivedWrapper + .receivedWrapper {
+  margin-top: -15px;
+}
+.appWrapper .chatWrapper .messagesWrapper .receivedWrapper + .receivedWrapper .messageText {
+  border-radius: 10px;
+}
+.appWrapper .chatWrapper .messagesWrapper .receivedWrapper + .receivedWrapper .messageText:before {
+  display: none;
+}
+.appWrapper .chatWrapper .messagesWrapper .receivedWrapper .message {
+  text-align: left;
+}
+.appWrapper .chatWrapper .messagesWrapper .receivedWrapper .message .messageText:before {
+  left: 0px;
+  transform: translateX(-50%);
+  border-left: 20px solid transparent;
+  border-top: 20px solid #fff;
+}
+.appWrapper .chatWrapper .inputWrapper {
+  flex: 0 0 56px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+.appWrapper .chatWrapper .inputWrapper .emojisWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+.appWrapper .chatWrapper .inputWrapper .emojisWrapper:active {
+  background-color: var(--palette);
+}
+.appWrapper .chatWrapper .inputWrapper .emojisWrapper:active .emojisIcon {
+  fill: #FFF;
+}
+.appWrapper .chatWrapper .inputWrapper .emojisWrapper .emojisIcon {
+  width: 30px;
+  fill: var(--palette);
+  transition: fill 0.3s ease-in-out;
+}
+.appWrapper .chatWrapper .inputWrapper .textWrapper {
+  flex: 1 1 auto;
+}
+.appWrapper .chatWrapper .inputWrapper .textWrapper .textInput {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 15px 5px;
+  background-color: transparent;
+  outline: none;
+}
+.appWrapper .chatWrapper .actionsWrapper {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.appWrapper .chatWrapper .actionsWrapper .sendButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+.appWrapper .chatWrapper .actionsWrapper .sendButton:active {
+  background-color: var(--palette);
+}
+.appWrapper .chatWrapper .actionsWrapper .sendButton:active .sendIcon {
+  fill: #FFF;
+}
+.appWrapper .chatWrapper .actionsWrapper .sendButton .sendIcon {
+  width: 30px;
+  fill: var(--palette);
+  transition: fill 0.3s ease-in-out;
+}
+
+/*# sourceMappingURL=styles.css.map */
