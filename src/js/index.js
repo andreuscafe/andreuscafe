@@ -104,7 +104,7 @@ var app = new Vue({
         async getChatData(key) {
             try {
                 const chatRequest = await fetch(
-                    `https://andreuscafe-lambda.vercel.app/api/get-redis?key=${key}`
+                    `https://andreuscafe-lambda.vercel.app/api/get-content?key=${key}`
                 );
                 if (chatRequest) {
                     const reqJson = await chatRequest.json();
