@@ -1,0 +1,377 @@
+.appWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+
+    @media (max-width: $mobile), (max-height: ($phoneHeight + 50px)) {
+        height: 100%;
+    }
+
+    .header {
+        flex: 0 0 auto;
+        height: 65px;
+        background-color: var(--palette);
+        // background: linear-gradient(45deg, var(--palette), var(--paletteLight));
+        display: flex;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.4);
+        z-index: 10;
+        position: relative;
+
+        ::-moz-selection {
+            background: #fff;
+            color: var(--palette);
+        }
+        ::selection {
+            background: #fff;
+            color: var(--palette);
+        }
+
+        .backWrapper {
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .backIcon {
+                fill: #fff;
+                width: 35px;
+            }
+        }
+
+        .userWrapper {
+            display: flex;
+            align-items: center;
+            flex: 1 1 auto;
+            text-decoration: none;
+
+            .userIcon {
+                flex: 0 0 auto;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                fill: #fff;
+                margin-right: 10px;
+            }
+
+            .userName {
+                color: #fff;
+                font-weight: bold;
+            }
+        }
+
+        .actionsWrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+
+            .actionIcon {
+                fill: #fff;
+                width: 25px;
+                height: 25px;
+                box-sizing: content-box;
+                padding: 10px;
+                border-radius: 50%;
+                margin-right: 5px;
+                transition: background-color 0.2s ease-in-out,
+                    fill 0.2s ease-in-out;
+                cursor: pointer;
+
+                &:active {
+                    background-color: #fff;
+                    fill: var(--palette);
+                }
+            }
+
+            .menuWrapper {
+                position: absolute;
+                background-color: #fff;
+                top: calc(100% + 5px);
+                right: 5px;
+                display: flex;
+                flex-direction: column;
+                border-radius: 5px;
+                box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.3);
+
+                &[data-open="true"] {
+                    transition: opacity 0.2s ease-in, transform 0.2s ease-in-out;
+                    opacity: 1;
+                    transform: translateY(0%) translateX(0%);
+                }
+
+                &[data-open="false"] {
+                    transition: opacity 0.2s ease-in-out,
+                        transform 0.5s ease-in-out;
+                    opacity: 0;
+                    transform: translateY(-100%) translateX(50%) scale(0);
+                }
+
+                &:before {
+                    content: "";
+                    width: 0px;
+                    border-bottom: 10px solid #fff;
+                    border-left: 7px solid transparent;
+                    border-right: 7px solid transparent;
+                    position: absolute;
+                    top: 0;
+                    right: 15px;
+                    transform: translateY(-100%);
+                }
+
+                .menuItem {
+                    flex: 1 1 auto;
+                    display: flex;
+                    padding: 10px;
+                    align-items: center;
+                    transition: background-color 0.3s ease-in-out,
+                        color 0.3s ease-in-out;
+                    cursor: pointer;
+
+                    &:first-child {
+                        border-top-left-radius: 5px;
+                        border-top-right-radius: 5px;
+                    }
+
+                    &:last-child {
+                        border-bottom-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                    }
+
+                    &:active {
+                        background-color: var(--palette);
+                        color: #fff;
+
+                        .menuIcon {
+                            fill: #fff;
+                        }
+                    }
+
+                    .menuIcon {
+                        flex: 0 0 auto;
+                        fill: var(--palette);
+                        width: 25px;
+                        height: 25px;
+                        box-sizing: content-box;
+                        border-radius: 50%;
+                        margin-right: 5px;
+                        transition: background-color 0.3s ease-in-out,
+                            fill 0.3s ease-in-out;
+                        cursor: pointer;
+                    }
+
+                    .menuLabel {
+                        flex: 1 0 auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .chatWrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        background: url(https://s3.amazonaws.com/andreus-images-bank/bg.png)
+            repeat center center;
+
+        .messagesWrapper {
+            flex: 1 1 auto;
+            overflow-y: auto;
+            padding: 10px 0;
+
+            .mb-track {
+                z-index: 1;
+            }
+
+            .message {
+                ::-moz-selection {
+                    background: var(--palette);
+                    color: #fff;
+                }
+                ::selection {
+                    background: var(--palette);
+                    color: #fff;
+                }
+
+                &:first-child {
+                    .messageText:before {
+                        content: "";
+                        width: 0px;
+                        height: 0px;
+                        position: absolute;
+                        top: 0;
+                    }
+                }
+
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+
+                .messageText {
+                    display: inline-block;
+                    background-color: #fff;
+                    border-radius: 10px;
+                    padding: 10px;
+                    position: relative;
+                    line-height: 1.4rem;
+                    max-width: 90%;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                    word-break: break-word;
+                    color: #333;
+
+                    &:after {
+                        content: attr(data-date);
+                        display: block;
+                        position: relative;
+                        font-size: 0.8rem;
+                        line-height: 1rem;
+                        color: #aaa;
+                        margin-top: 3px;
+                    }
+                }
+            }
+
+            .sentWrapper,
+            .receivedWrapper {
+                padding: 10px 15px;
+            }
+
+            .sentWrapper {
+                + .sentWrapper {
+                    margin-top: -15px;
+
+                    .messageText {
+                        border-radius: 10px;
+
+                        &:before {
+                            display: none;
+                        }
+                    }
+                }
+
+                .message {
+                    text-align: right;
+
+                    .messageText {
+                        background-color: var(--paletteLighter);
+                    }
+
+                    .messageText:before {
+                        right: 0px;
+                        transform: translateX(50%);
+                        border-right: 20px solid transparent;
+                        border-top: 20px solid var(--paletteLighter);
+                    }
+                }
+            }
+
+            .receivedWrapper {
+                + .receivedWrapper {
+                    margin-top: -15px;
+
+                    .messageText {
+                        border-radius: 10px;
+
+                        &:before {
+                            display: none;
+                        }
+                    }
+                }
+
+                .message {
+                    text-align: left;
+
+                    .messageText:before {
+                        left: 0px;
+                        transform: translateX(-50%);
+                        border-left: 20px solid transparent;
+                        border-top: 20px solid #fff;
+                    }
+                }
+            }
+        }
+
+        .inputWrapper {
+            flex: 0 0 56px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+
+            .emojisWrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 100%;
+                transition: background-color 0.3s ease-in-out;
+                cursor: pointer;
+
+                &:active {
+                    background-color: var(--palette);
+
+                    .emojisIcon {
+                        fill: #fff;
+                    }
+                }
+
+                .emojisIcon {
+                    width: 30px;
+                    fill: var(--palette);
+
+                    transition: fill 0.3s ease-in-out;
+                }
+            }
+
+            .textWrapper {
+                flex: 1 1 auto;
+
+                .textInput {
+                    // lol
+                    display: block;
+                    width: 100%;
+                    border: 0;
+                    padding: 15px 5px;
+                    background-color: transparent;
+                    outline: none;
+
+                    &:active {
+                    }
+                }
+            }
+        }
+
+        .actionsWrapper {
+            width: 50px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+
+            .sendButton {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                transition: background-color 0.3s ease-in-out;
+                cursor: pointer;
+
+                &:active {
+                    background-color: var(--palette);
+
+                    .sendIcon {
+                        fill: #fff;
+                    }
+                }
+
+                .sendIcon {
+                    width: 30px;
+                    fill: var(--palette);
+                    transition: fill 0.3s ease-in-out;
+                }
+            }
+        }
+    }
+}

@@ -1,20 +1,25 @@
 {
-  "name": "andreuscafe",
-  "version": "1.0.0",
-  "description": "Andreus Cafe",
-  "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack & npm run sass",
-    "dev": "(webpack --mode=development --watch) & (npm run sass -- --watch)",
-    "sass": "sass src/styles/styles.scss dist/styles/styles.css"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "vue": "^2.6.11",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
-  }
+    "name": "andreuscafe",
+    "version": "1.0.0",
+    "description": "Andreus Cafe",
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "NODE_ENV=production & webpack & npm run sass",
+        "build-win": "set NODE_ENV=production&&webpack && npm run sass",
+        "dev": "(webpack --mode=development --watch) & (npm run sass -- --watch)",
+        "dev-win": "concurrently --kill-others \"webpack --mode=development --watch\" \"npm run sass -- --watch\"",
+        "sass": "sass src/styles/styles.scss dist/styles/styles.css"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "vue": "^2.6.11",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11"
+    },
+    "devDependencies": {
+        "concurrently": "^5.3.0"
+    }
 }
